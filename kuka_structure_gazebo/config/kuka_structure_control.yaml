@@ -1,0 +1,24 @@
+controller_joint_names: ['joint_1']
+
+kuka_structure:
+  sample_period: 1.0e-3
+
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 250
+
+  # robust_inverse_dynamics:
+  #   type: robot_control/RobustInverseDynamicsControl
+  #   base_frame: world
+  #   tool_frame: flange
+  #   setpoint_topic_name: "/kuka_structure/joint_target"
+  #   natural_frequency: 100   # natural frequency of the closed loop
+  #   damping: 1              # relative damping of the closed loop
+  #   robustness_gain: 0.01   # robustness gain
+  #   integral_gain: [0.01, 0.01, 0.01, 0.01, 0.01, 0.0001]
+
+  position_joint_trajectory_controller:
+    type: "position_controllers/JointTrajectoryController"
+    joints:
+      - joint_1

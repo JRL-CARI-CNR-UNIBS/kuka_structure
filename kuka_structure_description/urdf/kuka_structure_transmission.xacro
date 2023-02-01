@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<robot  xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="kuka_structure_transmission"  params="prefix interface:=hardware_interface/EffortJointInterface">
+  <transmission name="${prefix}tran_1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="${prefix}joint_1">
+      <hardwareInterface>${interface}</hardwareInterface>
+    </joint>
+    <actuator name="${prefix}motor_1">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+</xacro:macro>
+
+</robot>
