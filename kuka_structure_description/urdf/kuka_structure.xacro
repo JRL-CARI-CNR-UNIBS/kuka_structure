@@ -1,114 +1,22 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-<!-- <xacro:macro name="kuka_structure" params="prefix:='' interface:=hardware_interface/EffortJointInterface"> -->
-<xacro:macro name="kuka_structure" params="prefix:='' interface:=hardware_interface/PositionJointInterface">
+  <xacro:macro name="kuka_structure" params="name:='kuka_structure'
+                                             prefix:=''
+                                             interface:=hardware_interface/EffortJointInterface
+                                             master_id:=0
+                                             use_fake_hardware:=false">
 
-  <xacro:property name="joint_1_vel_limit" value="1.74533" />    <!--  100°/s -->
+    <xacro:include filename="$(find kuka_structure_description)/urdf/kuka_structure_robot.xacro" />
+    <xacro:kuka_structure_robot prefix="${prefix}"/>
 
-  <xacro:property name="joint_1_eff_limit" value="100000" />
+    <xacro:include filename="$(find kuka_structure_description)/urdf/kuka_structure_transmission.xacro" />
+    <xacro:kuka_structure_transmission prefix="${prefix}" interface="${interface}"/>
 
-  <link name="${prefix}base_link">
-    <inertial>
-      <origin
-        xyz="0.035817 -0.1978 -1.2121E-05"
-        rpy="0 0 0" />
-      <mass
-        value="780.97" />
-      <inertia
-        ixx="25.789"
-        ixy="-0.0076742"
-        ixz="0.0023584"
-        iyy="48.078"
-        iyz="2.5193E-05"
-        izz="33.648" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://kuka_structure_gazebo/meshes/base_link.STL"
-          scale="0.001 0.001 0.001"/>
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="1 0 0 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://kuka_structure_gazebo/meshes/base_link.STL"
-          scale="0.001 0.001 0.001"/>
-      </geometry>
-    </collision>
-  </link>
-  <link name="${prefix}link_1">
-    <inertial>
-      <origin
-        xyz="-0.28012 0.38938 0.024882"
-        rpy="0 0 0" />
-      <mass
-        value="660.35" />
-      <inertia
-        ixx="38.274"
-        ixy="9.9756"
-        ixz="-0.5181"
-        iyy="36.77"
-        iyz="0.16531"
-        izz="32.584" />
-    </inertial>
-    <visual>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://kuka_structure_gazebo/meshes/link_1.STL"
-          scale="0.001 0.001 0.001"/>
-      </geometry>
-      <material
-        name="">
-        <color
-          rgba="1 0 0 1" />
-      </material>
-    </visual>
-    <collision>
-      <origin
-        xyz="0 0 0"
-        rpy="0 0 0" />
-      <geometry>
-        <mesh
-          filename="package://kuka_structure_gazebo/meshes/link_1.STL"
-          scale="0.001 0.001 0.001"/>
-      </geometry>
-    </collision>
-  </link>
-  <joint name="${prefix}joint_1" type="prismatic">
-    <origin
-      xyz="2.750 0.215 2.720"
-      rpy="0 0 0" />
-    <parent
-      link="${prefix}base_link" />
-    <child
-      link="${prefix}link_1" />
-    <axis
-      xyz="-1 0 0" />
-    <limit
-      lower="0"
-      upper="3.0"
-      effort="${joint_1_eff_limit}"
-      velocity="${joint_1_vel_limit}" />
-  </joint>
-<xacro:include filename="$(find kuka_structure_description)/urdf/kuka_structure_transmission.xacro" />
-<xacro:kuka_structure_transmission prefix="${prefix}" interface="${interface}"/>
-<xacro:include filename="$(find kuka_structure_description)/urdf/kuka_structure_gazebo.xacro" />
-<xacro:kuka_structure_roscontrol prefix="${prefix}"/>
+    <xacro:include filename="$(find kuka_structure_description)/urdf/kuka_structure_ros2_control.xacro" />
+    <xacro:kuka_structure_ros2_control name="${name}" 
+                                       prefix="${prefix}" 
+                                       master_id="${master_id}"
+                                       use_fake_hardware="${use_fake_hardware}"/>
 
-</xacro:macro>
+  </xacro:macro>
 </robot>

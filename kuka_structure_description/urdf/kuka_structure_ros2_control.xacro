@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="kuka_structure_ros2_control" params="name
+                                                          prefix
+                                                          master_id:=0
+                                                          use_fake_hardware:=false">
+
+    <ros2_control name="${name}" type="system">
+      <hardware>
+        <xacro:if value="${use_fake_hardware}">
+          <plugin>mock_components/GenericSystem</plugin>
+          <param name="fake_sensor_commands">false</param>
+          <param name="state_following_offset">0.0</param>
+        </xacro:if>
+        <xacro:unless value="${use_fake_hardware}">
+          <plugin>ethercat_driver/EthercatDriver</plugin>
+          <param name="master_id">${master_id}</param>
+          <param name="control_frequency">1000</param>
+        </xacro:unless>
+      </hardware>
+
+      <joint name="${prefix}joint_1">
+        <state_interface name="position"/>
+        <state_interface name="status_word"/>
+        <state_interface name="ctrl_word"/>
+        <command_interface name="position"/>
+        <ec_module name="${name}">
+          <plugin>ethercat_generic_plugins/EcCiA402Drive</plugin>
+          <param name="alias">0</param>
+          <param name="position">0</param>
+          <param name="mode_of_operation">8</param>
+          <param name="slave_config">$(find kuka_structure_description)/config/ethercat_config.yaml</param>
+        </ec_module>
+      </joint>
+    </ros2_control>
+
+  </xacro:macro>
+
+</robot>
