@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+
+<robot name="$(arg robot_name)" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find kuka_structure_description)/urdf/kuka_structure.xacro" />
+  <xacro:arg name="prefix" default=""/>
+
+  <xacro:property name="prefix" value="'$(arg prefix)'" />
+
+  <xacro:kuka_structure prefix="${prefix}"/>
+
+  <link name="world"/>
+  <joint name="${prefix}world_to_base_link" type="fixed">
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 3.141592654" />
+      <parent link="world"/>
+      <child link="${prefix}base_link"/>
+  </joint>
+</robot>

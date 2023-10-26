@@ -8,12 +8,17 @@ level0_hw:
   diagnostic_period: 0.1
   maximum_missing_cycles: 100
   feedback_joint_state_timeout: 10
-  joint_names:
-    - joint_1
   base_link: world
   tool_link: link_1
   robot_description_param: /robot_description
   robot_description_planning_param: /robot_description_planning
   kin_update_period: 0.002
 
-  initial_position: [0.0]
+  resources: [ joint_resource ]
+  # joint_resource:
+  joint_names:
+  - joint_1
+  subscribed_topics:  # name of topics sensor_msgs/JointState which contains the state of the joint handle
+  - /kuka_structure/joint_states
+  published_topics: # name of the topic (type sensor_msgs/JointState) that planner_hw will publish (it has to be only one)
+  - /kuka_structure/joint_target

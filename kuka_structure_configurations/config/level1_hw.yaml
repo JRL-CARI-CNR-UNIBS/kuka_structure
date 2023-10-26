@@ -9,17 +9,7 @@ level1_hw:
   joint_resource:  # joint handles managed by planner_hw
     joint_names:  # name of the joint handles
     - joint_1
-    - joint_2
-    - joint_3
-    - joint_4
-    - joint_5
-    - joint_6
     subscribed_topics:  # name of topics sensor_msgs/JointState which contains the state of the joint handle
-    - /kuka_structure/joint_states
-    - /kuka_structure/joint_states
-    - /kuka_structure/joint_states
-    - /kuka_structure/joint_states
-    - /kuka_structure/joint_states
     - /kuka_structure/joint_states
     published_topics: # name of the topic (type sensor_msgs/JointState) that planner_hw will publish (it has to be only one)
     - /joint_target
@@ -36,7 +26,7 @@ level1_hw:
   maximum_missing_cycles: 1000
   kin_update_period: 0.002
   base_link: "world"
-  tool_link: "link_6"
+  tool_link: "link_1"
   robot_description_param: /robot_description
   robot_description_planning_param: /robot_description_planning
   kin_update_period: 0.002

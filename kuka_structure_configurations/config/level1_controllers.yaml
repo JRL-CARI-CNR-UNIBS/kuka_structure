@@ -81,7 +81,7 @@ level1_hw:
     type:         cnr/control/JointStatePublisher
     controlled_joint: all
     base_link: "world"
-    tool_link: "link_6"
+    tool_link: "link_1"
     robot_description_param: /robot_description
     robot_description_planning_param: /robot_description_planning
 
@@ -111,7 +111,7 @@ level1_hw:
     type:        cnr/control/MultisineIdentificationController
     controlled_joints: all
     base_link  : "world"
-    tool_link  : "link_6"
+    tool_link  : "link_1"
     kin_update_period: 0.002
     appenders: [file, screen]
     levels: [trace, info]
@@ -142,8 +142,8 @@ level1_hw:
     type: cnr/control/SimpleTouchController
     sensor_name : "wrench"
     base_link   : "world"
-    tool_link   : "link_6"
-    sensor_frame: "link_6"
+    tool_link   : "link_1"
+    sensor_frame: "link_1"
     output_twist_ns: "/target_cart_twist"
 
   replanner:
@@ -158,7 +158,7 @@ level1_hw:
     checker_resolution: 0.05
     group_name: "kuka_structure"
     base_link   : "world"
-    tool_link   : "link_6"
+    tool_link   : "link_1"
 
 
   # joint_teleop:

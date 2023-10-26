@@ -1,0 +1,6 @@
+$(arg robot_name):
+  package_name: 'kuka_structure_description'
+  xacro_file_path: 'urdf/kuka_structure_pybullet.xacro'   # an urdf file with the same name will be generated
+  controlled_joint_name: ['$(arg prefix)joint_1']
+  joint_control_mode : 'position' # position (which is in fact POSITION_VELOCITY_PD), velocity, torque and pd.
+  joint_control_integral_gain: [0]

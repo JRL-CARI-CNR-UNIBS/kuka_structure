@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="prefix" default=""/>
+  <arg name="robot_name" default="kuka_structure"/>
+
+  <include file="$(find kuka_structure_pybullet)/launch/load_robot_config.launch">
+    <arg name="prefix" value="$(arg prefix)"/>
+    <arg name="robot_name" value="$(arg robot_name)"/>
+  </include>
+
+  <rosparam command="load" file="$(find kuka_structure_pybullet)/config/pybullet_param.yaml" subst_value="true"/>
+</launch>

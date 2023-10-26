@@ -1,5 +1,5 @@
-stomp/nj_220_2_7:
-  group_name: nj_220_2_7
+stomp/kuka_structure:
+  group_name: kuka_structure
   optimization:
     num_timesteps: 60
     num_iterations: 40
@@ -11,7 +11,7 @@ stomp/nj_220_2_7:
   task:
     noise_generator:
       - class: stomp_moveit/NormalDistributionSampling
-        stddev: [0.05, 0.05, 0.05, 0.05, 0.05, 0.05]
+        stddev: [0.05]
     cost_functions:
       - class: stomp_moveit/CollisionCheck
         collision_penalty: 1.0

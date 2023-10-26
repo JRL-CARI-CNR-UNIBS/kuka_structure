@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<!-- It is required to pass the args: robot_name-->
+<robot name="$(arg robot_name)" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find kuka_structure_description)/urdf/kuka_structure.xacro" />
+  <xacro:arg name="prefix" default=""/>
+
+  <xacro:property name="prefix" value="'$(arg prefix)'" />
+
+  <xacro:kuka_structure prefix="${prefix}"/>
+
+</robot>

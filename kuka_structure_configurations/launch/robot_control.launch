@@ -2,7 +2,6 @@
 
 <launch>
   <arg name="fake" default="true"/>
-  <arg name="gazebo" default="false"/>
   <arg name="launch_prefix" default=""/>
   <arg name="controllers_configurations" default="$(find kuka_structure_configurations)/config/controllers_configurations.yaml"/>
   <arg name="controllers_dispatches" default="$(find kuka_structure_configurations)/config/controllers_dispatches.yaml"/>
@@ -10,13 +9,13 @@
 
 <!-- Load CNR_ROS_CONTROL -->
 <!--Load robot hardware-->
-<rosparam if     = "$(arg gazebo)" command="load" file="$(find kuka_structure_configurations)/config/level0_gazebo_hw.yaml" />
-<rosparam unless = "$(arg gazebo)" command="load" file="$(find kuka_structure_configurations)/config/level0_hw.yaml" />
-
+<rosparam if= "$(arg fake)" command="load" file="$(find kuka_structure_configurations)/config/level0_hw.yaml" />
+<rosparam unless= "$(arg fake)" command="load" file="$(find kuka_structure_configurations)/config/level0_pybullet_hw.yaml" />
 <rosparam command="load" file="$(find kuka_structure_configurations)/config/level1_hw.yaml" />
 
 <!--Load controllers-->
-<rosparam command="load" file="$(find kuka_structure_configurations)/config/level0_controllers.yaml" />
+<rosparam if= "$(arg fake)" command="load" file="$(find kuka_structure_configurations)/config/level0_controllers_fake.yaml" />
+<rosparam unless= "$(arg fake)" command="load" file="$(find kuka_structure_configurations)/config/level0_controllers_real.yaml" />
 <rosparam command="load" file="$(find kuka_structure_configurations)/config/level1_controllers.yaml" />
 
 <node launch-prefix="$(arg launch_prefix)"

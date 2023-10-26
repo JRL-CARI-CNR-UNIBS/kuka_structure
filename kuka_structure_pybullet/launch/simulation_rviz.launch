@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<launch>
+  <param name="use_sim_time" type="bool" value="true"/>
+
+  <arg name="load_param" default="false" />
+
+  <!-- <arg name="use_rviz" default="true" /> -->
+  <arg name="use_moveit" default="true" />
+  <arg name="use_rviz" default="true" />
+
+  <include file="$(find kuka_structure_pybullet)/launch/simulation.launch">
+    <arg name="use_moveit" value="$(arg use_moveit)"/>
+  </include>
+  <include file="$(find kuka_structure_configurations)/launch/real_start.launch">
+    <arg name="use_rviz" value="$(arg use_rviz)"/>
+  </include>
+  <include file="$(find kuka_structure_configurations)/launch/rosdyn_node.launch"/>
+  <include file="$(find skills_util)/launch/skills_servers.launch"/>
+  <include file="$(find skills_util)/launch/bt_server.launch"/>
+  <!-- <node name="rosparam_to_rostopic" pkg="kuka_structure_tests" type="rosparam_to_rostopic.py" output="screen"/> -->
+</launch>

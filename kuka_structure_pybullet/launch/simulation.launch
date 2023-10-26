@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="prefix" default=""/>
+  <arg name="robot_name" default="kuka_structure"/>
+  <arg name="use_moveit" default="true" />
+
+  <param name="/$(arg robot_name)/prefix" type='str' value='$(arg prefix)'/>
+
+  <include file="$(find kuka_structure_pybullet)/launch/load_config.launch">
+    <arg name="prefix" value="$(arg prefix)"/>
+    <arg name="robot_name" value="$(arg robot_name)"/>
+  </include>
+
+  <include file="$(find pybullet_utils)/launch/run_pybullet.launch">
+    <arg name="use_moveit" value="$(arg use_moveit)"/>
+  </include>
+
+</launch>
