@@ -88,25 +88,25 @@
     </collision>
   </link>
 
-  <!-- <joint name="${prefix}joint_1" type="prismatic">
+  <joint name="${prefix}joint_1" type="prismatic">
     <origin
-      xyz="2.750 0.215 2.720"
+      xyz="-0.250 0.215 2.720"
       rpy="0 0 0" />
     <parent
       link="${prefix}base_link" />
     <child
       link="${prefix}link_1" />
     <axis
-      xyz="-1 0 0" />
+      xyz="1 0 0" />
     <limit
       lower="0"
       upper="3.0"
       effort="${joint_1_eff_limit}"
       velocity="${joint_1_vel_limit}" />
-  </joint> -->
+  </joint>
 
 <!-- current position -->
-  <joint name="${prefix}joint_1" type="fixed">
+  <!-- <joint name="${prefix}joint_1" type="fixed">
     <origin
       xyz="0.850 0.215 2.720"
       rpy="0 0 0" />
@@ -118,10 +118,10 @@
       xyz="-1 0 0" />
     <limit
       lower="0"
-      upper="3.0"
+      upper="30000000000000.0"
       effort="${joint_1_eff_limit}"
       velocity="${joint_1_vel_limit}" />
-  </joint>
+  </joint> -->
 <!-- end current position -->
 
 </xacro:macro>

@@ -1,0 +1,88 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 1000  # Hz
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    forward_position_controller:
+      type: forward_command_controller/ForwardCommandController
+
+    forward_velocity_controller:
+      type: forward_command_controller/ForwardCommandController
+
+    joint_trajectory_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    ctrl_word_controller:
+      type: ros2_control_demo_example_10/GPIOController
+
+    moo_controller:
+      type: ros2_control_demo_example_10/GPIOController
+
+    test_controller:
+      type: ros2_control_demo_example_10/GPIOController
+
+forward_position_controller:
+  ros__parameters:
+    joints:
+      - joint_1
+    interface_name: position
+
+forward_velocity_controller:
+  ros__parameters:
+    joints:
+      - joint_1
+    interface_name: velocity
+
+ctrl_word_controller:
+  ros__parameters:
+    outputs:
+      - joint_1/ctrl_word
+    inputs:
+      - joint_1/status_word
+
+moo_controller:
+  ros__parameters:
+    outputs:
+      - joint_1/moo
+    inputs:
+      - joint_1/moo_display
+
+test_controller:
+  ros__parameters:
+    outputs:
+      - digital_outputs1/d_output.2
+      - digital_outputs1/d_output.3
+      - digital_outputs1/d_output.4
+      - digital_outputs1/d_output.5
+      - digital_outputs1/d_output.6
+      - digital_outputs1/d_output.7
+      - digital_outputs2/d_output.0
+      - digital_outputs2/d_output.1
+      - digital_outputs2/d_output.2
+      - digital_outputs2/d_output.3
+      - digital_outputs2/d_output.4
+      - digital_outputs2/d_output.5
+      - digital_outputs2/d_output.6
+      - digital_outputs2/d_output.7
+    inputs:
+      - digital_inputs/d_input.0
+      - digital_inputs/d_input.1
+      - digital_inputs/d_input.2
+      - digital_inputs/d_input.3
+      - digital_inputs/d_input.4
+      - digital_inputs/d_input.5
+      - digital_inputs/d_input.6
+      - digital_inputs/d_input.7
+
+joint_trajectory_controller:
+  ros__parameters:
+    joints:
+      - joint_1
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+    state_publish_rate: 50.0
+    action_monitor_rate: 20.0

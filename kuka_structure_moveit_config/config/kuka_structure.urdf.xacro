@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="kuka_structure">
+    <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+
+    <!-- Import kuka_structure urdf file -->
+    <xacro:include filename="$(find kuka_structure_description)/urdf/kuka_structure_rviz.xacro" />
+
+    <!-- Import control_xacro -->
+    <xacro:include filename="kuka_structure.ros2_control.xacro" />
+
+
+    <xacro:kuka_structure_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
+
+</robot>

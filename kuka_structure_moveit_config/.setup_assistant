@@ -1,0 +1,25 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: kuka_structure_description
+    relative_path: urdf/kuka_structure_rviz.xacro
+  srdf:
+    relative_path: config/kuka_structure.srdf
+  package_settings:
+    author_name: Michele Delledonne
+    author_email: m.delledonne002@unibs.it
+    generated_timestamp: 1698743156
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+      - velocity

@@ -9,7 +9,7 @@
       <hardware>
         <xacro:if value="${use_fake_hardware}">
           <plugin>mock_components/GenericSystem</plugin>
-          <param name="fake_sensor_commands">false</param>
+          <param name="mock_sensor_commands">false</param>
           <param name="state_following_offset">0.0</param>
         </xacro:if>
         <xacro:unless value="${use_fake_hardware}">
@@ -20,18 +20,81 @@
       </hardware>
 
       <joint name="${prefix}joint_1">
-        <state_interface name="position"/>
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="effort">
+          <param name="initial_value">0.0</param>
+        </state_interface>
         <state_interface name="status_word"/>
-        <state_interface name="ctrl_word"/>
+        <state_interface name="moo_display"/>
         <command_interface name="position"/>
+        <command_interface name="velocity"/>
+        <command_interface name="ctrl_word"/>
+        <command_interface name="moo"/>
         <ec_module name="${name}">
           <plugin>ethercat_generic_plugins/EcCiA402Drive</plugin>
           <param name="alias">0</param>
           <param name="position">0</param>
           <param name="mode_of_operation">8</param>
-          <param name="slave_config">$(find kuka_structure_description)/config/ethercat_config.yaml</param>
+          <param name="slave_config">$(find kuka_structure_description)/config/delta_ethercat_config.yaml</param>
         </ec_module>
       </joint>
+
+      <gpio name="digital_inputs">
+        <state_interface name="d_input.0"/>
+        <state_interface name="d_input.1"/>
+        <state_interface name="d_input.2"/>
+        <state_interface name="d_input.3"/>
+        <state_interface name="d_input.4"/>
+        <state_interface name="d_input.5"/>
+        <state_interface name="d_input.6"/>
+        <state_interface name="d_input.7"/>
+        <ec_module name="EL1008">
+          <plugin>ethercat_generic_plugins/GenericEcSlave</plugin>
+          <param name="alias">0</param>
+          <param name="position">2</param>
+          <param name="slave_config">$(find kuka_structure_description)/config/EL1008_ethercat_config.yaml</param>
+        </ec_module>
+      </gpio>
+
+      <gpio name="digital_outputs1">
+        <command_interface name="d_output.0"/>
+        <command_interface name="d_output.1"/>
+        <command_interface name="d_output.2"/>
+        <command_interface name="d_output.3"/>
+        <command_interface name="d_output.4"/>
+        <command_interface name="d_output.5"/>
+        <command_interface name="d_output.6"/>
+        <command_interface name="d_output.7"/>
+        <ec_module name="EL2008">
+          <plugin>ethercat_generic_plugins/GenericEcSlave</plugin>
+          <param name="alias">0</param>
+          <param name="position">3</param>
+          <param name="slave_config">$(find kuka_structure_description)/config/EL2008_ethercat_config.yaml</param>
+        </ec_module>
+      </gpio>
+
+      <gpio name="digital_outputs2">
+        <command_interface name="d_output.0"/>
+        <command_interface name="d_output.1"/>
+        <command_interface name="d_output.2"/>
+        <command_interface name="d_output.3"/>
+        <command_interface name="d_output.4"/>
+        <command_interface name="d_output.5"/>
+        <command_interface name="d_output.6"/>
+        <command_interface name="d_output.7"/>
+        <ec_module name="EL2008">
+          <plugin>ethercat_generic_plugins/GenericEcSlave</plugin>
+          <param name="alias">0</param>
+          <param name="position">4</param>
+          <param name="slave_config">$(find kuka_structure_description)/config/EL2008_ethercat_config.yaml</param>
+        </ec_module>
+      </gpio>
+
     </ros2_control>
 
   </xacro:macro>
