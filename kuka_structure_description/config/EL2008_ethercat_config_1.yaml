@@ -4,7 +4,7 @@
  rpdo:  # RxPDO
      - index: 0x1600
        channels:
-         - {index: 0x7000, sub_index: 1, type: bool, mask: 1, command_interface: d_output.0}
+         - {index: 0x7000, sub_index: 1, type: bool, mask: 1, command_interface: lubrication_command}
      - index: 0x1601
        channels:
          - {index: 0x7010, sub_index: 1, type: bool, mask: 2, command_interface: d_output.1}
@@ -26,6 +26,7 @@
      - index: 0x1607
        channels:
          - {index: 0x7070, sub_index: 1, type: bool, mask: 128, command_interface: d_output.7}
+ 
  sm:  # Sync Manager
    - {index: 0, type: output, pdo: rpdo, watchdog: enable}
 

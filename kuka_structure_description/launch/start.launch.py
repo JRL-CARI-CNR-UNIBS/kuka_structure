@@ -122,24 +122,31 @@ def launch_setup(context, *args, **kwargs):
                    "-c",
                    "/controller_manager"],
     )
-    ctrl_word_controller_spawner = Node(
+    delta_ctrl_word_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["ctrl_word_controller",
+        arguments=["delta_ctrl_word_controller",
                    "-c",
                    "/controller_manager"],
     )
-    moo_controller_spawner = Node(
+    delta_moo_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["moo_controller",
+        arguments=["delta_moo_controller",
                    "-c",
                    "/controller_manager"],
     )
-    test_controller_spawner = Node(
+    digital_io_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["test_controller",
+        arguments=["digital_io_controller",
+                   "-c",
+                   "/controller_manager"],
+    )
+    ft_ati_controller_spawner = Node(
+        package="controller_manager",
+        executable="spawner",
+        arguments=["ft_ati_controller",
                    "-c",
                    "/controller_manager"],
     )
@@ -150,9 +157,10 @@ def launch_setup(context, *args, **kwargs):
         rviz_node,
         joint_state_broadcaster_spawner,
         joint_trajectory_controller_spawner,
-        ctrl_word_controller_spawner,
-        test_controller_spawner,
-        moo_controller_spawner
+        delta_ctrl_word_controller_spawner,
+        delta_moo_controller_spawner,
+        digital_io_controller_spawner,
+        ft_ati_controller_spawner        
         ]
 
     return nodes_to_start
