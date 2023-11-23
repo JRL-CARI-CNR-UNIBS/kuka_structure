@@ -54,17 +54,18 @@ def launch_setup(context, *args, **kwargs):
         )
     }
 
+    ethercat_utils_config = PathJoinSubstitution(
+                                [FindPackageShare('kuka_structure_description'),
+                                 "config",
+                                 "ethercat_utils_config.yaml"]
+    )
+
     controller_config = PathJoinSubstitution(
         [FindPackageShare("kuka_structure_description"),
          "config",
          "ros2_controllers_config.yaml"]
     )
 
-    joint_traj_controller_config = PathJoinSubstitution(
-        [FindPackageShare("kuka_structure_description"),
-         "config",
-         "joint_trajectory_controller_config.yaml"]
-    )
     rviz_config_file = PathJoinSubstitution(
         [FindPackageShare("kuka_structure_description"),
          "config",
@@ -94,6 +95,20 @@ def launch_setup(context, *args, **kwargs):
         condition=IfCondition(rviz_gui),
     )
 
+    delta_utils_node = Node(
+        name="delta_utils",
+        package="ethercat_utils",
+        executable="cia402_slave_manager",
+        parameters=[ethercat_utils_config]
+    )
+
+    battery_cell_utils_node = Node(
+        name="battery_cell_utils",
+        package="ethercat_utils",
+        executable="battery_cell_utils_manager",
+        parameters=[ethercat_utils_config]
+    )
+
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
@@ -120,19 +135,13 @@ def launch_setup(context, *args, **kwargs):
         executable="spawner",
         arguments=["joint_trajectory_controller",
                    "-c",
-                   "/controller_manager"],
+                   "/controller_manager",
+                   "--stopped"], # start the controller in a stopped state
     )
-    delta_ctrl_word_controller_spawner = Node(
+    delta_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["delta_ctrl_word_controller",
-                   "-c",
-                   "/controller_manager"],
-    )
-    delta_moo_controller_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["delta_moo_controller",
+        arguments=["delta_controller",
                    "-c",
                    "/controller_manager"],
     )
@@ -157,10 +166,11 @@ def launch_setup(context, *args, **kwargs):
         rviz_node,
         joint_state_broadcaster_spawner,
         joint_trajectory_controller_spawner,
-        delta_ctrl_word_controller_spawner,
-        delta_moo_controller_spawner,
+        delta_controller_spawner,
         digital_io_controller_spawner,
-        ft_ati_controller_spawner        
+        ft_ati_controller_spawner,
+        delta_utils_node,
+        battery_cell_utils_node
         ]
 
     return nodes_to_start

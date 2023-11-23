@@ -14,17 +14,14 @@ controller_manager:
     joint_trajectory_controller:
       type: joint_trajectory_controller/JointTrajectoryController
 
-    delta_ctrl_word_controller:
-      type: ros2_control_demo_example_10/GPIOController
-
-    delta_moo_controller:
-      type: ros2_control_demo_example_10/GPIOController
+    delta_controller:
+      type: ethercat_utils/GPIOController
 
     digital_io_controller:
-      type: ros2_control_demo_example_10/GPIOController
+      type: ethercat_utils/GPIOController
 
     ft_ati_controller:
-      type: ros2_control_demo_example_10/GPIOController
+      type: ethercat_utils/GPIOController
 
 forward_position_controller:
   ros__parameters:
@@ -38,18 +35,13 @@ forward_velocity_controller:
       - joint_1
     interface_name: velocity
 
-delta_ctrl_word_controller:
+delta_controller:
   ros__parameters:
     outputs:
       - joint_1/ctrl_word
-    inputs:
-      - joint_1/status_word
-
-delta_moo_controller:
-  ros__parameters:
-    outputs:
       - joint_1/moo
     inputs:
+      - joint_1/status_word
       - joint_1/moo_display
 
 digital_io_controller:

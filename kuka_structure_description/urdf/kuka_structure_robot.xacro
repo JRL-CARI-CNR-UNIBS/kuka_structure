@@ -4,6 +4,8 @@
 
   <xacro:property name="joint_1_vel_limit" value="1.74533" />    <!--  100°/s -->
   <xacro:property name="joint_1_eff_limit" value="100000" />
+  <xacro:property name="joint_1_lower_position_limit" value="0" />
+  <xacro:property name="joint_1_upper_position_limit" value="2.9" />
 
   <link name="${prefix}base_link">
     <inertial>
@@ -99,8 +101,8 @@
     <axis
       xyz="1 0 0" />
     <limit
-      lower="0"
-      upper="3.0"
+      lower="${joint_1_lower_position_limit}"
+      upper="${joint_1_upper_position_limit}"
       effort="${joint_1_eff_limit}"
       velocity="${joint_1_vel_limit}" />
   </joint>

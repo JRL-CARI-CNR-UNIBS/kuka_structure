@@ -31,15 +31,16 @@
         </state_interface>
         <state_interface name="status_word"/>
         <state_interface name="moo_display"/>
+        <state_interface name="error_code"/>
         <command_interface name="position"/>
         <command_interface name="velocity"/>
         <command_interface name="ctrl_word"/>
         <command_interface name="moo"/>
         <ec_module name="${name}">
-          <plugin>ethercat_generic_plugins/EcCiA402Drive</plugin>
+          <plugin>ethercat_generic_plugins/GenericEcSlave</plugin>
           <param name="alias">0</param>
+          <!-- <param name="alias">2</param> -->
           <param name="position">0</param>
-          <param name="mode_of_operation">8</param>
           <param name="slave_config">$(find kuka_structure_description)/config/delta_ethercat_config.yaml</param>
         </ec_module>
       </joint>

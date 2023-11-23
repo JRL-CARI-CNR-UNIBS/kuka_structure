@@ -1,0 +1,31 @@
+delta_utils:
+  ros__parameters:
+    control_word:
+      controller_name: delta_controller
+      command_interface: joint_1/ctrl_word
+    status_word:
+      controller_name: delta_controller
+      state_interface: joint_1/status_word
+    mode_of_operation:
+      controller_name: delta_controller
+      command_interface: joint_1/moo
+    mode_of_operation_display:
+      controller_name: delta_controller
+      state_interface: joint_1/moo_display
+
+    joint_trajectory_controller_name: joint_trajectory_controller
+
+battery_cell_utils:
+  ros__parameters:
+    lubrification:
+      command_controller_name: digital_io_controller
+      command_interface: digital_outputs1/lubrication_command
+      state_controller_name: digital_io_controller
+      state_interface: digital_inputs/lubrication_state
+    pneumatic_gripper:
+      opening_controller_name: digital_io_controller
+      opening_command_interface: digital_outputs1/opening_pneumatic_gripper
+      closure_controller_name: digital_io_controller
+      closure_command_interface: digital_outputs1/closure_pneumatic_gripper
+
+
