@@ -65,7 +65,7 @@
       <gpio name="digital_outputs1">
         <command_interface name="lubrication_command"/>
         <command_interface name="d_output.1"/>
-        <command_interface name="d_output.2"/>
+        <command_interface name="pneumatic_gripper"/>
         <command_interface name="d_output.3"/>
         <command_interface name="d_output.4"/>
         <command_interface name="d_output.5"/>

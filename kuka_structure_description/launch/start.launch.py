@@ -106,7 +106,8 @@ def launch_setup(context, *args, **kwargs):
         name="battery_cell_utils",
         package="ethercat_utils",
         executable="battery_cell_utils_manager",
-        parameters=[ethercat_utils_config]
+        parameters=[ethercat_utils_config],
+        output="screen"
     )
 
     joint_state_broadcaster_spawner = Node(

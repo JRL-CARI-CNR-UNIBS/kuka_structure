@@ -49,7 +49,7 @@ digital_io_controller:
     outputs:
       - digital_outputs1/lubrication_command
       - digital_outputs1/d_output.1
-      - digital_outputs1/d_output.2
+      - digital_outputs1/pneumatic_gripper
       - digital_outputs1/d_output.3
       - digital_outputs1/d_output.4
       - digital_outputs1/d_output.5

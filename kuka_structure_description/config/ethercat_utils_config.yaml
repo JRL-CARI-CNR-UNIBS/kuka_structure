@@ -17,15 +17,23 @@ delta_utils:
 
 battery_cell_utils:
   ros__parameters:
-    lubrification:
+    lubrication:
       command_controller_name: digital_io_controller
       command_interface: digital_outputs1/lubrication_command
       state_controller_name: digital_io_controller
       state_interface: digital_inputs/lubrication_state
     pneumatic_gripper:
-      opening_controller_name: digital_io_controller
-      opening_command_interface: digital_outputs1/opening_pneumatic_gripper
-      closure_controller_name: digital_io_controller
-      closure_command_interface: digital_outputs1/closure_pneumatic_gripper
+      controller_name: digital_io_controller
+      command_interface: digital_outputs1/pneumatic_gripper
+    ati_sensor:
+      controller_name: ft_ati_controller
+      command_interface: analog_inputs/sensor_reset
+      state_interfaces: 
+      - analog_inputs/force_x
+      - analog_inputs/force_y
+      - analog_inputs/force_z
+      - analog_inputs/torque_x 
+      - analog_inputs/torque_y
+      - analog_inputs/torque_z
 
 

@@ -10,7 +10,7 @@
          - {index: 0x7010, sub_index: 1, type: bool, mask: 2, command_interface: d_output.1}
      - index: 0x1602
        channels:
-         - {index: 0x7020, sub_index: 1, type: bool, mask: 4, command_interface: d_output.2}
+         - {index: 0x7020, sub_index: 1, type: bool, mask: 4, command_interface: pneumatic_gripper}
      - index: 0x1603
        channels:
          - {index: 0x7030, sub_index: 1, type: bool, mask: 8, command_interface: d_output.3}
