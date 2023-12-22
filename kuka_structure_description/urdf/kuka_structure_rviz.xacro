@@ -1,20 +1,27 @@
 <?xml version="1.0"?>
 
+<robot name="kuka_structure" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-<robot name="$(arg robot_name)" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:include filename="$(find kuka_structure_description)/urdf/kuka_structure.xacro" />
+  <xacro:arg name="robot_name" default="kuka_structure"/>
   <xacro:arg name="prefix" default=""/>
+  <xacro:arg name="use_fake_hardware" default="false"/>
 
   <xacro:property name="prefix" value="'$(arg prefix)'" />
+  <xacro:property name="robot_name" value="'$(arg robot_name)'" />
+  <xacro:property name="use_fake_hardware" value="'$(arg use_fake_hardware)'" />
 
-  <xacro:kuka_structure prefix="${prefix}"/>
+  <xacro:include filename="$(find kuka_structure_description)/urdf/kuka_structure.xacro" />
+  <xacro:kuka_structure name="${robot_name}"
+                        prefix="${prefix}"
+                        use_fake_hardware="${use_fake_hardware}" />
 
   <link name="world"/>
   <joint name="${prefix}world_to_base_link" type="fixed">
       <origin
         xyz="0 0 0"
-        rpy="0 0 3.141592654" />
+        rpy="0 0 0" />
       <parent link="world"/>
       <child link="${prefix}base_link"/>
   </joint>
+
 </robot>
