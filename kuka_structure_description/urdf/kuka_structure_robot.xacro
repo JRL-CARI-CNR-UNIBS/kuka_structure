@@ -90,7 +90,8 @@
     </collision>
   </link>
 
-  <joint name="${prefix}joint_1" type="prismatic">
+  <!-- <joint name="${prefix}joint_1" type="prismatic"> -->
+  <joint name="${prefix}joint_1" type="fixed">
     <origin
       xyz="-0.250 0.215 2.720"
       rpy="0 0 0" />
