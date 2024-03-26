@@ -41,35 +41,21 @@ def launch_setup(context, *args, **kwargs):
                 PathJoinSubstitution(
                     [FindPackageShare('kuka_structure_description'),
                      "urdf",
-                     "kuka_structure_rviz.xacro"]
-                ),
-                " ",
-                "prefix:=",
-                prefix.perform(context),
-                " ",
-                "use_fake_hardware:=",
-                use_fake_hardware.perform(context),]
+                     "only_gpio.xacro"]
+                ),]
            ),
            value_type=str
         )
     }
-
     ethercat_utils_config = PathJoinSubstitution(
                                 [FindPackageShare('kuka_structure_description'),
                                  "config",
                                  "ethercat_utils_config.yaml"]
     )
-
     controller_config = PathJoinSubstitution(
         [FindPackageShare("kuka_structure_description"),
          "config",
-         "ros2_controllers_config.yaml"]
-    )
-
-    rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare("kuka_structure_description"),
-         "config",
-         "view_cell.rviz"]
+         "only_gpio_ros2_controllers_config.yaml"]
     )
 
     control_node = Node(
@@ -78,59 +64,12 @@ def launch_setup(context, *args, **kwargs):
         parameters=[robot_description, controller_config],
         output="both",
     )
-
-    robot_state_pub_node = Node(
-        package="robot_state_publisher",
-        executable="robot_state_publisher",
-        output="both",
-        parameters=[robot_description],
-    )
-
-    rviz_node = Node(
-        package="rviz2",
-        executable="rviz2",
-        name="rviz2",
-        output="log",
-        arguments=["-d", rviz_config_file],
-        condition=IfCondition(rviz_gui),
-    )
-
-    delta_utils_node = Node(
-        name="delta_utils",
-        package="ethercat_utils",
-        executable="cia402_slave_manager",
-        parameters=[ethercat_utils_config]
-    )
-
     battery_cell_utils_node = Node(
         name="battery_cell_utils",
         package="ethercat_utils",
         executable="battery_cell_utils_manager",
         parameters=[ethercat_utils_config],
         output="screen"
-    )
-
-    joint_state_broadcaster_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["joint_state_broadcaster",
-                   "--controller-manager",
-                   "/controller_manager"],
-    )
-    structure_joint_trajectory_controller_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["structure_joint_trajectory_controller",
-                   "-c",
-                   "/controller_manager",
-                   "--inactive"], # start the controller in an INACTIVE state
-    )
-    delta_controller_spawner = Node(
-        package="controller_manager",
-        executable="spawner",
-        arguments=["delta_controller",
-                   "-c",
-                   "/controller_manager"],
     )
     digital_io_controller_spawner = Node(
         package="controller_manager",
@@ -149,14 +88,8 @@ def launch_setup(context, *args, **kwargs):
 
     nodes_to_start = [
         control_node,
-        robot_state_pub_node,
-        rviz_node,
-        joint_state_broadcaster_spawner,
-        structure_joint_trajectory_controller_spawner,
-        delta_controller_spawner,
         digital_io_controller_spawner,
         ft_ati_controller_spawner,
-        delta_utils_node,
         battery_cell_utils_node
         ]
 
@@ -165,27 +98,7 @@ def launch_setup(context, *args, **kwargs):
 
 def generate_launch_description():
     launch_arguments = []
-    launch_arguments.append(DeclareLaunchArgument(
-        'prefix',
-        default_value='structure_'
-    ))
-    launch_arguments.append(DeclareLaunchArgument(
-        'use_fake_hardware',
-        default_value='false'
-    ))
-    launch_arguments.append(DeclareLaunchArgument(
-        'rviz_gui',
-        default_value="true"
-    ))
     ld = LaunchDescription(launch_arguments +
                            [OpaqueFunction(function=launch_setup)])
-
-    moveit_config = MoveItConfigsBuilder("kuka_structure",
-                                         package_name="kuka_structure_moveit_config"
-                                         ).to_moveit_configs()
-
-    ld.add_action(IncludeLaunchDescription(
-                      PythonLaunchDescriptionSource(
-                          str(moveit_config.package_path) + "/launch/move_group.launch.py")))
 
     return ld

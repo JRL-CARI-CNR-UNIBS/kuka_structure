@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="only_gpio_ros2_control" params="name
+                                                     master_id:=0
+                                                     use_fake_hardware:=false">
+
+    <ros2_control name="${name}" type="system">
+      <hardware>
+        <xacro:if value="${use_fake_hardware}">
+          <plugin>mock_components/GenericSystem</plugin>
+          <param name="mock_sensor_commands">false</param>
+          <param name="state_following_offset">0.0</param>
+        </xacro:if>
+        <xacro:unless value="${use_fake_hardware}">
+          <plugin>ethercat_driver/EthercatDriver</plugin>
+          <param name="master_id">${master_id}</param>
+          <param name="control_frequency">1000</param>
+        </xacro:unless>
+      </hardware>
+
+      <gpio name="digital_inputs">
+        <state_interface name="lubrication_state"/>
+        <state_interface name="limit_switch_homing"/>
+        <state_interface name="limit_switch_end"/>
+        <state_interface name="d_input.3"/>
+        <state_interface name="d_input.4"/>
+        <state_interface name="d_input.5"/>
+        <state_interface name="d_input.6"/>
+        <state_interface name="d_input.7"/>
+        <ec_module name="EL1008">
+          <plugin>ethercat_generic_plugins/GenericEcSlave</plugin>
+          <param name="alias">0</param>
+          <param name="position">2</param>
+          <param name="slave_config">$(find kuka_structure_description)/config/EL1008_ethercat_config.yaml</param>
+        </ec_module>
+      </gpio>
+
+      <gpio name="digital_outputs1">
+        <command_interface name="lubrication_command"/>
+        <command_interface name="d_output.1"/>
+        <command_interface name="pneumatic_gripper"/>
+        <command_interface name="d_output.3"/>
+        <command_interface name="d_output.4"/>
+        <command_interface name="d_output.5"/>
+        <command_interface name="d_output.6"/>
+        <command_interface name="d_output.7"/>
+        <ec_module name="EL2008">
+          <plugin>ethercat_generic_plugins/GenericEcSlave</plugin>
+          <param name="alias">0</param>
+          <param name="position">3</param>
+          <param name="slave_config">$(find kuka_structure_description)/config/EL2008_ethercat_config_1.yaml</param>
+        </ec_module>
+      </gpio>
+
+      <gpio name="digital_outputs2">
+        <command_interface name="d_output.0"/>
+        <command_interface name="d_output.1"/>
+        <command_interface name="d_output.2"/>
+        <command_interface name="d_output.3"/>
+        <command_interface name="d_output.4"/>
+        <command_interface name="d_output.5"/>
+        <command_interface name="d_output.6"/>
+        <command_interface name="d_output.7"/>
+        <ec_module name="EL2008">
+          <plugin>ethercat_generic_plugins/GenericEcSlave</plugin>
+          <param name="alias">0</param>
+          <param name="position">4</param>
+          <param name="slave_config">$(find kuka_structure_description)/config/EL2008_ethercat_config_2.yaml</param>
+        </ec_module>
+      </gpio>
+
+      <gpio name="analog_inputs">
+        <command_interface name="sensor_reset"/>
+        <state_interface name="sensor_channel_0"/>
+        <state_interface name="sensor_channel_1"/>
+        <state_interface name="sensor_channel_2"/>
+        <state_interface name="sensor_channel_3"/>
+        <state_interface name="sensor_channel_4"/>
+        <state_interface name="sensor_channel_5"/>
+        <state_interface name="a_input_6"/>
+        <state_interface name="a_input_7"/>
+        <state_interface name="force_x"/>
+        <state_interface name="force_y"/>
+        <state_interface name="force_z"/>
+        <state_interface name="torque_x"/>
+        <state_interface name="torque_y"/>
+        <state_interface name="torque_z"/>
+        <ec_module name="EL3008">
+          <plugin>ethercat_generic_plugins/EcAtiSensor</plugin>
+          <param name="alias">0</param>
+          <param name="position">5</param>
+          <param name="slave_config">$(find kuka_structure_description)/config/EL3008_ethercat_config.yaml</param>
+          <param name="sensor_runtime_matrix">$(find kuka_structure_description)/config/ati_sensor_runtime_matrix.yaml</param>
+        </ec_module>
+      </gpio>
+
+    </ros2_control>
+
+  </xacro:macro>
+
+</robot>

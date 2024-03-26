@@ -3,7 +3,7 @@
 <robot name="kuka_structure" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
   <xacro:arg name="robot_name" default="kuka_structure"/>
-  <xacro:arg name="prefix" default=""/>
+  <xacro:arg name="prefix" default="structure_"/>
   <xacro:arg name="use_fake_hardware" default="false"/>
 
   <xacro:property name="prefix" value="'$(arg prefix)'" />

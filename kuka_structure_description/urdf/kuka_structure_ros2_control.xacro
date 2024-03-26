@@ -29,9 +29,15 @@
         <state_interface name="effort">
           <param name="initial_value">0.0</param>
         </state_interface>
-        <state_interface name="status_word"/>
-        <state_interface name="moo_display"/>
-        <state_interface name="error_code"/>
+        <state_interface name="status_word">
+          <param name="initial_value">0</param>
+        </state_interface>
+        <state_interface name="moo_display">
+          <param name="initial_value">0</param>
+        </state_interface>
+        <state_interface name="error_code">
+          <param name="initial_value">0</param>
+        </state_interface>
         <command_interface name="position"/>
         <command_interface name="velocity"/>
         <command_interface name="ctrl_word"/>
@@ -46,14 +52,30 @@
       </joint>
 
       <gpio name="digital_inputs">
-        <state_interface name="lubrication_state"/>
-        <state_interface name="limit_switch_homing"/>
-        <state_interface name="limit_switch_end"/>
-        <state_interface name="d_input.3"/>
-        <state_interface name="d_input.4"/>
-        <state_interface name="d_input.5"/>
-        <state_interface name="d_input.6"/>
-        <state_interface name="d_input.7"/>
+        <state_interface name="lubrication_state">
+          <param name="initial_value">0</param>
+        </state_interface>
+        <state_interface name="limit_switch_homing">
+          <param name="initial_value">0</param>
+        </state_interface>
+        <state_interface name="limit_switch_end">
+          <param name="initial_value">0</param>
+        </state_interface>
+        <state_interface name="d_input.3">
+          <param name="initial_value">0</param>
+        </state_interface>
+        <state_interface name="d_input.4">
+          <param name="initial_value">0</param>
+        </state_interface>
+        <state_interface name="d_input.5">
+          <param name="initial_value">0</param>
+        </state_interface>
+        <state_interface name="d_input.6">
+          <param name="initial_value">0</param>
+        </state_interface>
+        <state_interface name="d_input.7">
+          <param name="initial_value">0</param>
+        </state_interface>
         <ec_module name="EL1008">
           <plugin>ethercat_generic_plugins/GenericEcSlave</plugin>
           <param name="alias">0</param>
@@ -98,20 +120,48 @@
 
       <gpio name="analog_inputs">
         <command_interface name="sensor_reset"/>
-        <state_interface name="sensor_channel_0"/>
-        <state_interface name="sensor_channel_1"/>
-        <state_interface name="sensor_channel_2"/>
-        <state_interface name="sensor_channel_3"/>
-        <state_interface name="sensor_channel_4"/>
-        <state_interface name="sensor_channel_5"/>
-        <state_interface name="a_input_6"/>
-        <state_interface name="a_input_7"/>
-        <state_interface name="force_x"/>
-        <state_interface name="force_y"/>
-        <state_interface name="force_z"/>
-        <state_interface name="torque_x"/>
-        <state_interface name="torque_y"/>
-        <state_interface name="torque_z"/>
+        <state_interface name="sensor_channel_0">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="sensor_channel_1">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="sensor_channel_2">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="sensor_channel_3">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="sensor_channel_4">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="sensor_channel_5">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="a_input_6">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="a_input_7">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="force_x">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="force_y">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="force_z">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="torque_x">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="torque_y">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="torque_z">
+          <param name="initial_value">0.0</param>
+        </state_interface>
         <ec_module name="EL3008">
           <plugin>ethercat_generic_plugins/EcAtiSensor</plugin>
           <param name="alias">0</param>

@@ -2,18 +2,18 @@ delta_utils:
   ros__parameters:
     control_word:
       controller_name: delta_controller
-      command_interface: joint_1/ctrl_word
+      command_interface: structure_joint_1/ctrl_word
     status_word:
       controller_name: delta_controller
-      state_interface: joint_1/status_word
+      state_interface: structure_joint_1/status_word
     mode_of_operation:
       controller_name: delta_controller
-      command_interface: joint_1/moo
+      command_interface: structure_joint_1/moo
     mode_of_operation_display:
       controller_name: delta_controller
-      state_interface: joint_1/moo_display
+      state_interface: structure_joint_1/moo_display
 
-    joint_trajectory_controller_name: joint_trajectory_controller
+    joint_trajectory_controller_name: structure_joint_trajectory_controller
 
 battery_cell_utils:
   ros__parameters:
@@ -25,15 +25,19 @@ battery_cell_utils:
     pneumatic_gripper:
       controller_name: digital_io_controller
       command_interface: digital_outputs1/pneumatic_gripper
+      controlled_joint_name: gripper_left_joint_circle
     ati_sensor:
       controller_name: ft_ati_controller
       command_interface: analog_inputs/sensor_reset
-      state_interfaces: 
+      state_interfaces: # use the sequence of the sensor channels [force_x, force_y, force_z, torque_x, torque_y, torque_z]
       - analog_inputs/force_x
       - analog_inputs/force_y
       - analog_inputs/force_z
       - analog_inputs/torque_x 
       - analog_inputs/torque_y
       - analog_inputs/torque_z
+      published_topic: /kuka_sensor/wrench
+      publication_rate: 1000.0
+      frame_id: kuka_gripper_base_link
 
 
