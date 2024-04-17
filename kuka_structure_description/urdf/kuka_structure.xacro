@@ -4,7 +4,8 @@
                                              prefix:=''
                                              interface:=hardware_interface/EffortJointInterface
                                              master_id:=0
-                                             use_fake_hardware:=false">
+                                             use_fake_hardware:=false
+                                             external_ethercat_ros2_control:=false">
 
     <xacro:include filename="$(find kuka_structure_description)/urdf/kuka_structure_robot.xacro" />
     <xacro:kuka_structure_robot prefix="${prefix}"/>
@@ -12,11 +13,15 @@
     <xacro:include filename="$(find kuka_structure_description)/urdf/kuka_structure_transmission.xacro" />
     <xacro:kuka_structure_transmission prefix="${prefix}" interface="${interface}"/>
 
-    <xacro:include filename="$(find kuka_structure_description)/urdf/kuka_structure_ros2_control.xacro" />
-    <xacro:kuka_structure_ros2_control name="${name}" 
-                                       prefix="${prefix}" 
-                                       master_id="${master_id}"
-                                       use_fake_hardware="${use_fake_hardware}"/>
+    
+    <!-- Only load ROS2 control configuration for GPIOs if external_ethercat_ros2_control==false -->
+    <xacro:unless value="${external_ethercat_ros2_control}">
+      <xacro:include filename="$(find kuka_structure_description)/urdf/kuka_structure_ros2_control.xacro" />
+      <xacro:kuka_structure_ros2_control name="${name}" 
+                                         prefix="${prefix}" 
+                                         master_id="${master_id}"
+                                         use_fake_hardware="${use_fake_hardware}"/>
+    </xacro:unless>
 
   </xacro:macro>
 </robot>

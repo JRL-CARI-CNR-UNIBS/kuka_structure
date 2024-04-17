@@ -19,13 +19,13 @@
          - {index: 0x7040, sub_index: 1, type: bool, mask: 16, command_interface: d_output.4}
      - index: 0x1605
        channels:
-         - {index: 0x7050, sub_index: 1, type: bool, mask: 32, command_interface: d_output.5}
+         - {index: 0x7050, sub_index: 1, type: bool, mask: 32, command_interface: screwdriver_hp}
      - index: 0x1606
        channels:
          - {index: 0x7060, sub_index: 1, type: bool, mask: 64, command_interface: d_output.6}
      - index: 0x1607
        channels:
-         - {index: 0x7070, sub_index: 1, type: bool, mask: 128, command_interface: d_output.7}
+         - {index: 0x7070, sub_index: 1, type: bool, mask: 128, command_interface: screwdriver_lp}
  
  sm:  # Sync Manager
    - {index: 0, type: output, pdo: rpdo, watchdog: enable}

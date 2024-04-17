@@ -107,9 +107,9 @@
         <command_interface name="d_output.2"/>
         <command_interface name="d_output.3"/>
         <command_interface name="d_output.4"/>
-        <command_interface name="d_output.5"/>
+        <command_interface name="screwdriver_hp"/>
         <command_interface name="d_output.6"/>
-        <command_interface name="d_output.7"/>
+        <command_interface name="screwdriver_lp"/>
         <ec_module name="EL2008">
           <plugin>ethercat_generic_plugins/GenericEcSlave</plugin>
           <param name="alias">0</param>
